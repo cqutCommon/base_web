@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace和定义的Mapper接口对应，并实现其中的方法 -->
+<mapper namespace="com.cqut.dao.student.StudentTestDao">
+    <resultMap id="StudentMap" type="com.cqut.entity.StudentTest">
+        <result property="EId" column="EId"/>
+        <result property="inputCode" column="inputCode"/>
+        <result property="operatorCode" column="operatorCode"/>
+        <result property="operateDate" column="operateDate"/>
+        <result property="orgId" column="orgId"/>
+        <result property="remark" column="remark"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="info" column="info"/>
+        <result property="phone" column="phone"/>
+        <result property="registerDate" column="registerDate"/>
+    </resultMap>
+
+    <!-- 这里的id必须和UserMapper接口中的接口方法名相同，这些sql语句就是实现接口中的方法。-->
+    <insert id="insertStudent" parameterType="com.cqut.entity.StudentTest">
+        insert into studenttest(inputCode,operatorCode,operateDate,orgId,remark,name,sex,age,info,phone,registerDate)
+        values(#{inputCode},#{operatorCode},#{operateDate},#{orgId},#{remark},#{name},#{sex},#{age},#{info},#{phone},#{registerDate})      <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
+    </insert>
+
+    <select id="getStudents" parameterType="String" resultMap="StudentMap">
+        select * from studenttest where 1=1
+        <if test="where != ''">
+            ${where}
+        </if>
+    </select>
+</mapper>

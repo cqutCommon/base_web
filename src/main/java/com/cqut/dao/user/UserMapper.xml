@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace和定义的Mapper接口对应，并实现其中的方法 -->
+<mapper namespace="com.cqut.dao.user.UserMapper">
+    <resultMap id="UserMap" type="com.cqut.entity.User">
+        <result property="id" column="id"/>
+        <result property="userName" column="userName"/>
+        <result property="password" column="password"/>
+        <result property="gender" column="gender"/>
+        <result property="hobby" column="hobby"/>
+    </resultMap>
+
+    <!-- 这里的id必须和UserMapper接口中的接口方法名相同，这些sql语句就是实现接口中的方法。-->
+    <insert id="insertUser" parameterType="com.cqut.entity.User">
+        insert into user(userName,password,gender,hobby)
+        values(#{userName},#{password},#{gender},#{hobby})      <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
+    </insert>
+
+    <delete id="deleteUser" parameterType="com.cqut.entity.User">
+        DELETE FROM user WHERE id = #{id}      <!-- 这里sql结尾不能加分号，否则报“ORA-00911”的错误 -->
+    </delete>
+
+    <update id="updateUser" parameterType="com.cqut.entity.User">
+        update user
+        <set>
+            userName=#{userName},password=#{password},gender=#{gender},hobby=#{hobby}
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <select id="getUserbyUserName" parameterType="String" resultMap="UserMap">
+        select * from user where userName =#{userName}
+    </select>
+
+    <select id="getUser" resultMap="UserMap">
+        select * from user where userName =#{userName} and password = #{password}
+    </select>
+
+    <select id="getUsers" parameterType="String" resultMap="UserMap">
+        select * from user where 1=1
+        <if test="where != ''">
+            and ${where}
+        </if>
+    </select>
+</mapper>
