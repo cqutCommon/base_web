@@ -102,10 +102,10 @@ public class TestController {
 //              }
 //    }
     //application/json
-    @RequestMapping(value = "json.do")
+    @RequestMapping(value = "json2.do")
     @ResponseBody
-    public String json(@RequestBody User user){
-        return user.toString();
+    public User json(@RequestBody User user){
+        return user;
     }
 
 
@@ -122,6 +122,11 @@ public class TestController {
     }
 
 
+    @RequestMapping(value = "user2.do",method = RequestMethod.GET)
+    @ResponseBody
+    public User getUser2(){
+        return userService.getUser("dd");
+    }
 
 
 

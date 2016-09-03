@@ -1,7 +1,9 @@
 package com.cqut.entity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.cqut.util.JSON;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 /**
  * ClassName
@@ -20,6 +22,9 @@ public class User {
     private String gender;
 
     private String hobby;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date date = new Date();
 
     public User() {
     }
@@ -69,13 +74,16 @@ public class User {
         this.hobby = hobby;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
-        try {
-
-            return new ObjectMapper().writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        return JSON.toJsonString(this);
     }
 }

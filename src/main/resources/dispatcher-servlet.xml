@@ -11,7 +11,7 @@
     <context:component-scan base-package="com" annotation-config="true"/>
 
     <!--<mvc:annotation-driven/>-->
-    <mvc:annotation-driven conversion-service="myDateConverter"/>
+    <mvc:annotation-driven/>
 
     <mvc:interceptors>
         <mvc:interceptor>
@@ -20,13 +20,13 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean id ="myDateConverter" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="com.cqut.common.MyDateConverter"></bean>
-            </set>
-        </property>
-    </bean>
+    <!--<bean id ="myDateConverter" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+        <!--<property name="converters">-->
+            <!--<set>-->
+                <!--<bean class="com.cqut.common.MyDateConverter"></bean>-->
+            <!--</set>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <!-- 解决@ResponseBody注解直接返回对象并转换成JSON时出现406问题，同时解决了返回String类型乱码的问题 -->
     <mvc:annotation-driven>
@@ -49,6 +49,21 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <!--<bean id="mappingJacksonHttpMessageConverter"-->
+          <!--class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+        <!--<property name="supportedMediaTypes">-->
+            <!--<list>-->
+                <!--<value>application/json;charset=UTF-8</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+        <!--<property name="messageConverters">-->
+            <!--<list>-->
+                <!--<ref bean="mappingJacksonHttpMessageConverter"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
     <!-- 支持返回json -->
 
     <!--对进入DispatcherServlet的URL进行筛查，如果发现是静态资源的请求，就将该请求转由Web应用服务器默认的Servlet处理，如果不是静态资源的请求，才由DispatcherServlet继续处理。-->
